@@ -22,16 +22,16 @@ pygame.display.set_caption('Space Invaders')
 
 #define fonts
 
-font30 = pygame.font.SysFont('Constantia, 30')
-font40 = pygame.font.SysFont('Constantia, 40')
+font30 = pygame.font.SysFont('Constantia', 30)
+font40 = pygame.font.SysFont('Constantia', 40)
 
-explosao_fx = pygame.mixer.Sound("img/explosao.wav")
+explosao_fx = pygame.mixer.Sound("img_explosion.wav")
 explosao_fx.set_volume(0.25)
 
-explosao2_fx = pygame.mixer.Sound("img/explosao2.wav")
+explosao2_fx = pygame.mixer.Sound("explosion2.wav")
 explosao2_fx.set_volume(0.25) 
 
-laser_fx = pygame.mixer.Sound("img/laser.wav")
+laser_fx = pygame.mixer.Sound("img_laser.wav")
 laser_fx.set_volume(0.25) 
 
 
@@ -52,7 +52,7 @@ white = (255, 255, 255)
 
 
 #carrega imagem
-bg = pygame.image.load('espaco.jpg')
+bg = pygame.image.load('bg.png')
 bg = pygame.transform.scale(bg, (width,height))
 
 def draw_bg():
@@ -72,7 +72,7 @@ def draw_text(text, font, text_col, x, y):
 class Nave(pygame.sprite.Sprite):
     def init(self, x, y, vida):
         pygame.sprite.Sprite.init(self)
-        self.image = pygame.image.load('nave.png')
+        self.image = pygame.image.load('spaceship.png')
         self.image = pygame.transform.scale(self.image, (60, 60)) 
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
@@ -126,7 +126,7 @@ class Nave(pygame.sprite.Sprite):
 class Tiros(pygame.sprite.Sprite):
     def init(self, x, y):
         pygame.sprite.Sprite.init(self)
-        self.image = pygame.image.load('donut.jpeg')
+        self.image = pygame.image.load('bullet.png')
         self.image = pygame.transform.scale(self.image, (40, 40)) 
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
@@ -145,10 +145,12 @@ class Tiros(pygame.sprite.Sprite):
 class Aliens(pygame.sprite.Sprite):
     def init(self, x, y):
         pygame.sprite.Sprite.init(self)
-        self.image = pygame.image.load('img/alien' + str(random.radiant(1,5))+'.png')
+        self.image = pygame.image.load('alien' + str(random.radiant(1,5))+'.png')
         self.image = pygame.transform.scale(self.image, (40, 40)) 
         self.rect = self.image.get_rect()
-        self.rect.center = [x,y]
+        self.rect.x = x
+        self.rect.y = y
+        # self.rect.center = [x,y]
         self.contador_movimento = 0
         self.direcao_movimento = 1 
     
@@ -165,7 +167,7 @@ class Aliens(pygame.sprite.Sprite):
 class Alien_Tiros(pygame.sprite.Sprite):
     def init(self, x, y):
         pygame.sprite.Sprite.init(self)
-        self.image = pygame.image.load('tiro_dos_aliens.png')
+        self.image = pygame.image.load('alien_bullet.png')
         self.image = pygame.transform.scale(self.image, (40, 40)) 
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
@@ -232,8 +234,9 @@ def cria_aliens():
     #gera aliens
     for linha in range(linhas):
         for item in range(colunas):
-            alien = Aliens(100+item*100, 100 + linha*70)
-            alien_grupo.add(alien)
+            alien= Aliens(0,0)
+            # alien = Aliens(100+item*100, 100 + linha*70)
+            # alien_grupo.add(alien)
 cria_aliens()
 
 
@@ -275,12 +278,12 @@ while run:
             tiro_alien_grupo.update()
         else:
             if game_over == -1:
-                draw_text("GAME OVER!", font40, white, int(width/ 2 - 100), int(height / 2 + 50))
+                draw_text("PERDEU OTÁRIO!", font40, white, int(width/ 2 - 100), int(height / 2 + 50))
             if game_over == 1:
-                draw_text("YOU WIN!", font40, white, int(width/ 2 - 100), int(height / 2 + 50))
+                draw_text("VOCÊ É PIKA!", font40, white, int(width/ 2 - 100), int(height / 2 + 50))
 
     if countdown > 0: 
-        draw_text("GET READY!", font40, white, int(width/ 2 - 100), int(height / 2 + 50))
+        draw_text("PREPARE-SE!", font40, white, int(width/ 2 - 100), int(height / 2 + 50))
         draw_text(str(countdown) , font40, white, int(width/ 2 - 10), int(height / 2 + 100 ))
         count_timer = pygame.time.get_ticks()
         if count_timer - last_count > 1000:
