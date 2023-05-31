@@ -26,7 +26,7 @@ verde = (0, 255, 0)
 
 
 #carrega imagem
-bg = pygame.image.load('espaco.jpg')
+bg = pygame.image.load('pacman.jpeg')
 bg = pygame.transform.scale(bg, (width,height))
 
 def draw_bg():
@@ -37,7 +37,7 @@ def draw_bg():
 class Nave(pygame.sprite.Sprite):
     def _init_(self, x, y, vida):
         pygame.sprite.Sprite._init_(self)
-        self.image = pygame.image.load('nave.png')
+        self.image = pygame.image.load('nave.jpeg')
         self.image = pygame.transform.scale(self.image, (60, 60)) 
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
@@ -81,7 +81,7 @@ class Nave(pygame.sprite.Sprite):
 class Tiros(pygame.sprite.Sprite):
     def _init_(self, x, y):
         pygame.sprite.Sprite._init_(self)
-        self.image = pygame.image.load('tiro.png')
+        self.image = pygame.image.load('donut.jpeg')
         self.image = pygame.transform.scale(self.image, (40, 40)) 
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
@@ -96,7 +96,7 @@ class Tiros(pygame.sprite.Sprite):
 class Aliens(pygame.sprite.Sprite):
     def _init_(self, x, y):
         pygame.sprite.Sprite._init_(self)
-        self.image = pygame.image.load('img/alien' + str(random.radiant(1,5))+'.png')
+        self.image = pygame.image.load('alien' + str(random.radiant(1,5))+'.png')
         self.image = pygame.transform.scale(self.image, (40, 40)) 
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
